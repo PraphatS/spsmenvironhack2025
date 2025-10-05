@@ -125,7 +125,14 @@
         "เอ้อร์", "CORNcept SAVEariel"
       ]
     };
-
+// เติมทีมลง dropdown โดยอัตโนมัติ
+const teamSelect = document.getElementById("team");
+teams.forEach(team => {
+  let option = document.createElement("option");
+  option.value = team;
+  option.textContent = team;
+  teamSelect.appendChild(option);
+});
     // เปลี่ยนทีมตามระดับ
     document.getElementById("level").addEventListener("change", function() {
       const level = this.value;
