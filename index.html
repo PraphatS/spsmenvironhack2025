@@ -112,21 +112,40 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzFTpPTumQoiSGpHumJjvqV9GemDoyLzN8NjTf_l-akiD6Jx3HIbculNGag_NMZxjn1g/exec"; // ✅ URL จาก Google Apps Script
 
-    // ทีมแบ่งตามระดับ
-    onst teams = [
-  "UAI", "จ้องมองโฟทาเซียม", "เต่างอยซีซั่น 4", 
-  "LENE_jaii", "WolffiaCleanerX", "Caffinity",
-  "ต้นฟอกใจ", "กำลังจัดอยู่"
-];
+      // ทีมแบ่งตามระดับ
+    const teams = {
+      "มัธยมปลาย": [
+        "UAI", "จ้องมองโพทาเซียม", "เต่างอยซีซั่น 4 ตอนที่ 2 ภาค SPSM (พากย์ไทยเต็มเรื่อง)", 
+        "Caffinity",
+        "ต้นฟอกใจ", "กำลังคิดอยู่"
+      ],
+      "มัธยมต้น": [
+        "The Power of 3", "Gaia warriors", "โชคลาภ", 
+        "PANMA", "Sheure-team", "Peptidoglycan The Survivor", 
+        "เอ้อร์", "CORNcept SAVEariel"
+      ]
+    };
 
-// เติมทีมลง dropdown โดยอัตโนมัติ
-const teamSelect = document.getElementById("team");
-teams.forEach(team => {
-  let option = document.createElement("option");
-  option.value = team;
-  option.textContent = team;
-  teamSelect.appendChild(option);
-});
+    // เปลี่ยนทีมตามระดับ
+    document.getElementById("level").addEventListener("change", function() {
+      const level = this.value;
+      const teamSelect = document.getElementById("team");
+      teamSelect.innerHTML = "";
+
+      if (teams[level]) {
+        teams[level].forEach(team => {
+          let option = document.createElement("option");
+          option.value = team;
+          option.textContent = team;
+          teamSelect.appendChild(option);
+        });
+      } else {
+        let option = document.createElement("option");
+        option.value = "";
+        option.textContent = "-- กรุณาเลือกระดับชั้นก่อน --";
+        teamSelect.appendChild(option);
+      }
+    });
 
     // บันทึกคะแนน
     document.getElementById("scoreForm").addEventListener("submit", function(e) {
